@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+	// 画面が切り替わる度に呼ばれます
+	document.addEventListener('init', function(event) {
+        var page = event.target.id;
+        if (page == "test-page") {
+            //イベントの設定
+            // 登録ボタン押下時の処理
+            $("#regist").on("click",function(){
+                //設定内容を取得しローカルストレージに保存する
+                var json_array = [];
+                var json_data = {
+                    id: '12345',
+                    name: '塩田和正',
+                    url: 'http://www.anabuki-college.net/ack/'
+                    };
+                json_array.push(json_data);
+                
+                json_data = {
+                    id: '45678',
+                    name: '塩田花子',
+                    url: 'http://www.anabuki-college.net/abk/'
+                    };
+                json_array.push(json_data);
+                
+                localStorage.setItem('favorire_data', JSON.stringify(json_array));
+            })
+            
+            // 表示ボタン押下時の処理
+            $("#show").on("click",function(){
+                //ローカルストレージから取得する
+                var str = localStorage.getItem('favorire_data');
+                var json_array = JSON.parse(str);
+                
+                /////////////////////////////////
+                console.log(json_array.length);
+                console.log(json_array[0].id);
+                console.log(json_array[0].name);
+                console.log(json_array[0].url);
+                
+                console.log(json_array[1].id);
+                console.log(json_array[1].name);
+                console.log(json_array[1].url);
+                alert(json_data.id);
+                alert(json_data.name);
+                alert(json_data.url);
+                /////////////////////////////////
+
+            })
+            
+        }    
+
+     
+        
+    });
+  
+  </script>
+</head>
+<body>
+    <ons-navigator id="navigator" page="test.html"></ons-navigator>
+
+    <!--ページ -->
+	<ons-template id="test.html">
+    <ons-page id="test-page">
+        <ons-list-item>
+        <ons-button id="regist">登録</ons-button>
+        </ons-list-item>
+        <ons-list-item>
+        <ons-button id="show">表示</ons-button>
+        </ons-list-item>
+    </ons-page>
+    </ons-template>
+
+</body>
+</html>
